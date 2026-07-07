@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudhanshu Kumar Barnawal | Software Engineer</title>
+    <meta name="description" content="Portfolio of Sudhanshu Kumar Barnawal, Software Engineer specializing in Python, Django, and scalable backends.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        dark: '#0a0a0a',
+                        darker: '#050505',
+                        brand: '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styling & Glassmorphism */
+        body { font-family: 'Inter', sans-serif; cursor: none; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .light .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed; top: 0; left: 0;
+            width: 20px; height: 20px;
+            background: rgba(59, 130, 246, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+            z-index: 9999;
+        }
+        
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient Backgrounds */
+        .bg-gradient-animate {
+            background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Progress Bar Animation */
+        .progress-bar { transition: width 1.5s ease-in-out; }
+        
+        /* Loading Screen */
+        #loader {
+            position: fixed; inset: 0;
+            background: #0a0a0a; z-index: 10000;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-darker text-gray-200 dark:bg-darker dark:text-gray-200 bg-white text-gray-900 transition-colors duration-300 antialiased overflow-x-hidden">
+
+    <div id="loader">
+        <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 animate-pulse">
+            SKB.
+        </div>
+    </div>
+
+    <div id="cursor" class="hidden md:block"></div>
+
+    <div class="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 z-50" id="scroll-progress"></div>
+
+    <nav class="fixed w-full z-40 glass-card transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold tracking-tighter">Sudhanshu<span class="text-blue-500">.</span></a>
+            <div class="hidden md:flex space-x-8 items-center text-sm font-medium">
+                <a href="#about" class="hover:text-blue-500 transition">About</a>
+                <a href="#skills" class="hover:text-blue-500 transition">Skills</a>
+                <a href="#experience" class="hover:text-blue-500 transition">Experience</a>
+                <a href="#projects" class="hover:text-blue-500 transition">Projects</a>
+                <a href="#contact" class="hover:text-blue-500 transition">Contact</a>
+                <button id="theme-toggle" class="p-2 rounded-full glass-card hover:scale-110 transition">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block text-yellow-400"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center justify-center bg-gradient-animate dark:bg-gradient-animate overflow-hidden pt-20">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="reveal">
+                <p class="text-blue-500 font-medium tracking-wide mb-2">👋 Hello, I am</p>
+                <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 dark:from-white dark:to-gray-500">
+                    Sudhanshu Kumar Barnawal
+                </h1>
+                <h2 class="text-2xl md:text-3xl font-medium mb-6 text-gray-400">
+                    <span id="typing-text"></span><span class="animate-pulse">|</span>
+                </h2>
+                <p class="text-gray-400 dark:text-gray-400 text-lg mb-8 max-w-lg leading-relaxed">
+                    Software Engineer specializing in Python, Django, REST APIs and scalable backend development. Passionate about building efficient, secure and user-centric web applications.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#projects" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition transform hover:-translate-y-1 shadow-lg shadow-blue-500/30">View Projects</a>
+                    <a href="#contact" class="px-8 py-3 glass-card rounded-full font-medium transition transform hover:-translate-y-1">Contact Me</a>
+                </div>
+            </div>
+            <div class="hidden md:flex justify-center reveal delay-200">
+                <div class="relative w-80 h-80 glass-card rounded-2xl flex items-center justify-center overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 group-hover:scale-110 transition duration-500"></div>
+                    <i class="fa-brands fa-python text-9xl text-blue-400 animate-bounce"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 max-w-7xl mx-auto px-6">
+        <div class="reveal">
+            <h2 class="text-3xl font-bold mb-12 flex items-center"><span class="w-8 h-1 bg-blue-500 mr-4"></span> About Me</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="md:col-span-2 text-lg text-gray-400 leading-relaxed">
+                    <p class="mb-4">Experienced Software Engineer with practical experience building scalable backend systems using Python and Django. Strong foundation in Data Structures & Algorithms, RESTful APIs, Object-Oriented Programming and relational databases.</p>
+                    <p>Passionate about solving real-world problems, continuously learning modern technologies, and collaborating with cross-functional teams to deliver high-quality software.</p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="glass-card p-6 rounded-xl text-center hover:-translate-y-2 transition duration-300">
+                        <h3 class="text-3xl font-bold text-blue-400">3</h3>
+                        <p class="text-sm mt-2 text-gray-400">Months Internship</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl text-center hover:-translate-y-2 transition duration-300">
+                        <h3 class="text-3xl font-bold text-purple-400">1</h3>
+                        <p class="text-sm mt-2 text-gray-400">Major Project</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-24 bg-dark/50 dark:bg-dark/50">
+        <div class="max-w-7xl mx-auto px-6 reveal">
+            <h2 class="text-3xl font-bold mb-12 flex items-center"><span class="w-8 h-1 bg-blue-500 mr-4"></span> Technical Skills</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass-card p-8 rounded-2xl">
+                    <h3 class="text-xl font-semibold mb-6 flex items-center"><i class="fas fa-server mr-3 text-blue-500"></i> Backend</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Python</span><span>90%</span></div>
+                            <div class="w-full bg-gray-700 h-2 rounded-full"><div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 0%" data-width="90%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Django / DRF</span><span>85%</span></div>
+                            <div class="w-full bg-gray-700 h-2 rounded-full"><div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 0%" data-width="85%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>REST APIs</span><span>85%</span></div>
+                            <div class="w-full bg-gray-700 h-2 rounded-full"><div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 0%" data-width="85%"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-2xl">
+                    <h3 class="text-xl font-semibold mb-6 flex items-center"><i class="fas fa-laptop-code mr-3 text-purple-500"></i> Frontend</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>JavaScript</span><span>75%</span></div>
+                            <div class="w-full bg-gray-700 h-2 rounded-full"><div class="bg-purple-500 h-2 rounded-full progress-bar" style="width: 0%" data-width="75%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>HTML5/CSS3</span><span>85%</span></div>
+                            <div class="w-full bg-gray-700 h-2 rounded-full"><div class="bg-purple-500 h-2 rounded-full progress-bar" style="width: 0%" data-width="85%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Bootstrap</span><span>80%</span></div>
+                            <div class="w-full bg-gray-700 h-2 rounded-full"><div class="bg-purple-500 h-2 rounded-full progress-bar" style="width: 0%" data-width="80%"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-2xl">
+                    <h3 class="text-xl font-semibold mb-6 flex items-center"><i class="fas fa-brain mr-3 text-green-500"></i> CS Core</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Data Structures & Algorithms</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Object-Oriented Programming</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> MVC Architecture</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Authentication & Security</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 rounded-2xl">
+                    <h3 class="text-xl font-semibold mb-6 flex items-center"><i class="fas fa-database mr-3 text-yellow-500"></i> Database</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><i class="fas fa-check text-yellow-500 mr-2"></i> SQLite</li>
+                        <li><i class="fas fa-check text-yellow-500 mr-2"></i> SQL Optimization</li>
+                        <li><i class="fas fa-check text-yellow-500 mr-2"></i> Relational Design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-24 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
+        <div class="reveal">
+            <h2 class="text-3xl font-bold mb-12 flex items-center"><span class="w-8 h-1 bg-blue-500 mr-4"></span> Experience</h2>
+            <div class="border-l-2 border-gray-700 pl-8 relative space-y-12">
+                <div class="relative">
+                    <div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full bg-blue-500 border-4 border-darker"></div>
+                    <span class="text-sm text-blue-400 font-semibold tracking-wider">3 Months</span>
+                    <h3 class="text-xl font-bold mt-1">Software Developer Intern</h3>
+                    <h4 class="text-gray-400 mb-4">Softpro India Computer Technologies Pvt Ltd</h4>
+                    <ul class="list-disc list-inside text-gray-400 text-sm space-y-2">
+                        <li>Developed backend modules using Django MVC.</li>
+                        <li>Implemented Authentication and Form Validation.</li>
+                        <li>Built REST APIs for frontend integration.</li>
+                        <li>Designed optimized relational databases.</li>
+                        <li>Improved processing efficiency by 40%.</li>
+                        <li>Collaborated closely with senior developers.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="reveal delay-100">
+            <h2 class="text-3xl font-bold mb-12 flex items-center"><span class="w-8 h-1 bg-purple-500 mr-4"></span> Education</h2>
+            <div class="border-l-2 border-gray-700 pl-8 relative space-y-10">
+                <div class="relative">
+                    <div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full bg-purple-500 border-4 border-darker"></div>
+                    <span class="text-sm text-purple-400 font-semibold tracking-wider">2025–2028</span>
+                    <h3 class="text-xl font-bold mt-1">B.Tech Computer Science Engineering</h3>
+                </div>
+                <div class="relative">
+                    <div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full bg-gray-600 border-4 border-darker"></div>
+                    <span class="text-sm text-gray-400 font-semibold tracking-wider">Passed 2025</span>
+                    <h3 class="text-xl font-bold mt-1">Diploma in Computer Science Engineering</h3>
+                </div>
+                <div class="relative">
+                    <div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full bg-gray-600 border-4 border-darker"></div>
+                    <span class="text-sm text-gray-400 font-semibold tracking-wider">Passed 2021</span>
+                    <h3 class="text-xl font-bold mt-1">ADCA</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 bg-dark/50 dark:bg-dark/50">
+        <div class="max-w-7xl mx-auto px-6 reveal">
+            <h2 class="text-3xl font-bold mb-12 flex items-center"><span class="w-8 h-1 bg-blue-500 mr-4"></span> Featured Project</h2>
+            
+            <div class="glass-card rounded-3xl p-1 md:p-8 grid md:grid-cols-2 gap-8 items-center border border-gray-800">
+                <div class="p-6">
+                    <div class="flex gap-2 mb-4">
+                        <span class="text-xs font-semibold px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full">Python</span>
+                        <span class="text-xs font-semibold px-3 py-1 bg-green-500/10 text-green-400 rounded-full">Django</span>
+                        <span class="text-xs font-semibold px-3 py-1 bg-gray-500/10 text-gray-400 rounded-full">SQLite</span>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-4">Online Admission System</h3>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        A comprehensive platform facilitating the entire admission process. Features secure role-based portals, automated notifications, and document verification workflows.
+                    </p>
+                    <ul class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-gray-400 mb-8">
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i>Admin/Applicant Portals</li>
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i>REST APIs Integration</li>
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i>Email/SMS Notifications</li>
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i>Document Uploads</li>
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i>Session Authentication</li>
+                        <li><i class="fas fa-check text-blue-500 mr-2"></i>Optimized Database</li>
+                    </ul>
+                    <div class="flex gap-4">
+                        <a href="#" class="px-6 py-2 bg-white text-black hover:bg-gray-200 rounded-full font-medium transition text-sm">Live Demo</a>
+                        <a href="#" class="px-6 py-2 glass-card rounded-full font-medium transition hover:bg-white/10 text-sm"><i class="fab fa-github mr-2"></i>GitHub</a>
+                    </div>
+                </div>
+                <div class="p-6 relative group perspective">
+                    <div class="w-full h-64 bg-gray-800 rounded-xl overflow-hidden relative shadow-2xl transform transition duration-500 group-hover:rotate-y-12 group-hover:scale-105 border border-gray-700">
+                        <div class="absolute top-0 w-full h-8 bg-gray-900 flex items-center px-4 gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <div class="p-6 pt-12 text-sm font-mono text-blue-300">
+                            > Starting Django server...<br>
+                            > System checks identified no issues.<br>
+                            > Server running at http://127.0.0.1:8000/<br>
+                            > [SUCCESS] Admission APIs loaded.<br>
+                            > _
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 max-w-7xl mx-auto px-6 reveal">
+        <h2 class="text-3xl font-bold mb-12 flex items-center justify-center text-center"><span class="w-8 h-1 bg-blue-500 mr-4"></span> Why Hire Me? <span class="w-8 h-1 bg-blue-500 ml-4"></span></h2>
+        <div class="flex flex-wrap justify-center gap-6">
+            <div class="glass-card px-6 py-3 rounded-full text-sm font-medium hover:bg-blue-500/20 hover:text-blue-400 transition cursor-default">🧠 Problem Solver</div>
+            <div class="glass-card px-6 py-3 rounded-full text-sm font-medium hover:bg-purple-500/20 hover:text-purple-400 transition cursor-default">⚙️ Backend Developer</div>
+            <div class="glass-card px-6 py-3 rounded-full text-sm font-medium hover:bg-green-500/20 hover:text-green-400 transition cursor-default">🔌 API Specialist</div>
+            <div class="glass-card px-6 py-3 rounded-full text-sm font-medium hover:bg-yellow-500/20 hover:text-yellow-400 transition cursor-default">🗄️ Database Designer</div>
+            <div class="glass-card px-6 py-3 rounded-full text-sm font-medium hover:bg-red-500/20 hover:text-red-400 transition cursor-default">🚀 Fast Learner</div>
+            <div class="glass-card px-6 py-3 rounded-full text-sm font-medium hover:bg-indigo-500/20 hover:text-indigo-400 transition cursor-default">🤝 Team Player</div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-dark/50 dark:bg-dark/50 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 reveal">
+            <h2 class="text-3xl font-bold mb-12 flex items-center"><span class="w-8 h-1 bg-blue-500 mr-4"></span> Let's Connect</h2>
+            <div class="grid md:grid-cols-2 gap-16">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Get in Touch</h3>
+                    <p class="text-gray-400 mb-8">I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center glass-card p-4 rounded-xl">
+                            <i class="fas fa-envelope text-blue-500 text-xl w-8"></i>
+                            <a href="mailto:sudhanshukumar07831@gmail.com" class="text-gray-300 hover:text-blue-400 transition">sudhanshukumar07831@gmail.com</a>
+                        </div>
+                        <div class="flex items-center glass-card p-4 rounded-xl">
+                            <i class="fas fa-phone text-green-500 text-xl w-8"></i>
+                            <a href="tel:+916202940932" class="text-gray-300 hover:text-green-400 transition">+91 62029-40932</a>
+                        </div>
+                        <div class="flex items-center glass-card p-4 rounded-xl">
+                            <i class="fas fa-location-dot text-red-500 text-xl w-8"></i>
+                            <span class="text-gray-300">Bihar, India</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="glass-card p-8 rounded-2xl space-y-6" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                        <input type="text" required class="w-full bg-dark/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                        <input type="email" required class="w-full bg-dark/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                        <textarea rows="4" required class="w-full bg-dark/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 border-t border-gray-800 text-center">
+        <div class="flex justify-center gap-6 mb-6">
+            <a href="#" class="text-gray-400 hover:text-blue-500 transition text-xl"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition text-xl"><i class="fab fa-github"></i></a>
+            <a href="mailto:sudhanshukumar07831@gmail.com" class="text-gray-400 hover:text-red-500 transition text-xl"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p class="text-gray-500 text-sm">
+            &copy; 2026 Designed & Developed by <span class="text-gray-300 font-medium">Sudhanshu Kumar Barnawal</span>.
+        </p>
+    </footer>
+
+    <script>
+        // 1. Loading Screen
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 1000);
+        });
+
+        // 2. Custom Cursor
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, button, input, textarea').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%, -50%) scale(1.5)');
+            el.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
+        });
+
+        // 3. Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+        });
+
+        // 4. Scroll Reveal & Progress Bar
+        const reveals = document.querySelectorAll('.reveal');
+        const progressBar = document.getElementById('scroll-progress');
+        
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Trigger progress bars inside skills section
+                    const pBars = entry.target.querySelectorAll('.progress-bar');
+                    pBars.forEach(bar => bar.style.width = bar.getAttribute('data-width'));
+                }
+            });
+        }, { threshold: 0.1 });
+
+        reveals.forEach(reveal => scrollObserver.observe(reveal));
+
+        window.addEventListener('scroll', () => {
+            // Scroll Progress
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            progressBar.style.width = (winScroll / height) * 100 + '%';
+
+            // Sticky Navbar Background
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg', 'border-b', 'border-gray-800');
+            } else {
+                nav.classList.remove('shadow-lg', 'border-b', 'border-gray-800');
+            }
+        });
+
+        // 5. Typing Animation
+        const textArray = ["Backend Developer", "Python/Django Expert", "API Specialist", "Problem Solver"];
+        let textIndex = 0;
+        let charIndex = 0;
+        const typingText = document.getElementById("typing-text");
+
+        function type() {
+            if (charIndex < textArray[textIndex].length) {
+                typingText.textContent += textArray[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 100);
+            } else {
+                setTimeout(erase, 2000);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typingText.textContent = textArray[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, 50);
+            } else {
+                textIndex = (textIndex + 1) % textArray.length;
+                setTimeout(type, 500);
+            }
+        }
+        
+        setTimeout(type, 1500); // Start after loader
+    </script>
+</body>
+</html>
